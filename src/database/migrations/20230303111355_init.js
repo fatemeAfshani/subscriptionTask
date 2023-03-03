@@ -24,7 +24,7 @@ exports.up = function (knex) {
       table.integer("price", 20).defaultTo(0); //beacause subscription price might change at any time
       table.string("createdAt", 20);
       table.string("duration", 20); // amount of time that subscription must be active (default is 1 month)
-      table.boolean("isAcitve").notNullable().defaultTo(true);
+      table.boolean("isActive").notNullable().defaultTo(true);
       table.index("customerId");
     })
     .createTable("invoices", function (table) {
