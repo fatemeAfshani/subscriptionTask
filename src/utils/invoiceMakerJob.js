@@ -1,6 +1,6 @@
 const moment = require("jalali-moment");
-const { CustomerSubscriptions, Invoice, History } = require("../../database");
-const logger = require("../../logger");
+const { CustomerSubscriptions, Invoice, History } = require("../database");
+const logger = require("../logger");
 
 module.exports.invoiceMakerJob = async () => {
   try {

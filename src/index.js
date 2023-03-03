@@ -10,7 +10,7 @@ const CronJob = require("cron").CronJob;
 const customerRouter = require("./routes/customer");
 const subscriptionRouter = require("./routes/subscription");
 const logger = require("./logger");
-const { invoiceMakerJob } = require("./controllers/invoice/invoiceMakerJob");
+const { invoiceMakerJob } = require("./utils/invoiceMakerJob");
 
 const job = new CronJob("*/10 * * * *", invoiceMakerJob);
 job.start();
