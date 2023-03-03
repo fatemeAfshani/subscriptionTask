@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const moment = require("jalali-moment");
 
 const customerRouter = require("./routes/customer");
+const subscriptionRouter = require("./routes/subscription");
 const logger = require("./logger");
 
 const app = express();
@@ -33,6 +34,7 @@ const limiter = rateLimit({
 if (process.env.ENVIRONMENT === "prod") app.use(limiter);
 
 app.use("/customer", customerRouter);
+app.use("/subscription", subscriptionRouter);
 
 app.use((err, req, res, _) => {
   logger.error(`error handler: ${err}`);
