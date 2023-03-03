@@ -3,4 +3,5 @@ module.exports = {
   History: require("./customersActivityHistory"),
   Subscription: require("./subscription"),
   CustomerSubscriptions: require("./customerSubscriptions"),
+  Invoice: require("./invoice"),
 };

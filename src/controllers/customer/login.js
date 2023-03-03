@@ -17,7 +17,7 @@ module.exports.login = async (req, res) => {
         return res.status(401).send({ message: "invalid login" });
       }
       const token = createToken(customer);
-      logger.info(`customer with username: ${username} and token: ${token}`);
+      logger.info(`customer login with username: ${username}`);
       res.status(200).send({ username, token });
     }
   } catch (error) {

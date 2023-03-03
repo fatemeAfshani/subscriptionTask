@@ -5,10 +5,15 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
 const moment = require("jalali-moment");
+const CronJob = require("cron").CronJob;
 
 const customerRouter = require("./routes/customer");
 const subscriptionRouter = require("./routes/subscription");
 const logger = require("./logger");
+const { invoiceMakerJob } = require("./controllers/invoice/invoiceMakerJob");
+
+const job = new CronJob("*/10 * * * *", invoiceMakerJob);
+job.start();
 
 const app = express();
 app.use(express.json());
