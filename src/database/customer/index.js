@@ -1,6 +1,6 @@
 const knex = require("../db");
 
-const addUser = (params) => {
+const add = (params) => {
   return knex.insert(params, ["id"]).into("customers");
 };
 
@@ -9,6 +9,6 @@ const get = (params) => {
 };
 
 module.exports = {
-  addUser,
+  add,
   get,
 };

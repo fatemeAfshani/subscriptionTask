@@ -1,19 +1,18 @@
 const { Router } = require("express");
-const { login } = require("../../controllers/customer/login");
-const { register } = require("../../controllers/customer/register");
 
+const customerController= require("../../controllers/customer");
 const { errorHandler } = require("../../utils/middlewares/errorHandler");
-const { UserValidator } = require("./validator");
+const { customerValidator } = require("./validator");
 
 const customerRouter = new Router();
 
 customerRouter.post(
   "/register",
-  UserValidator("REGISTER"),
+  customerValidator("REGISTER"),
   errorHandler,
-  register
+  customerController.register
 );
 
-customerRouter.post("/login", UserValidator("LOGIN"), errorHandler, login);
+customerRouter.post("/login", customerValidator("LOGIN"), errorHandler, customerController.login);
 
 module.exports = customerRouter;
