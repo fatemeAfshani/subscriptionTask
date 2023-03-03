@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const logger = require("../logger");
-const customerDB = require("../database/customer");
+const customerDB = require("../../database/customer");
 
 module.exports.isAuth = async (req, res, next) => {
   try {
