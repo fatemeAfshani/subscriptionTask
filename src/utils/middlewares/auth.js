@@ -15,7 +15,7 @@ module.exports.isAuth = async (req, res, next) => {
 
     req.token = authorization;
     req.user = user;
-    next();S
+    next();
   } catch (error) {
     logger.error(`error in authorization middleware, ${error}`);
     return res.sendStatus(401);
