@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const { add, update } = require("../../controllers/subscription");
+const { add, update, buy } = require("../../controllers/subscription");
+const { isAuth } = require("../../utils/middlewares/auth");
 
 const { errorHandler } = require("../../utils/middlewares/errorHandler");
 const { subscriptionValidator } = require("./validator");
@@ -18,6 +19,14 @@ subscriptionRouter.patch(
   subscriptionValidator("UPDATE"),
   errorHandler,
   update
+);
+
+subscriptionRouter.get(
+  "/buy/:id",
+  isAuth,
+  subscriptionValidator("BUY"),
+  errorHandler,
+  buy
 );
 
 module.exports = subscriptionRouter;

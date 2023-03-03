@@ -40,6 +40,9 @@ module.exports.subscriptionValidator = (method) => {
           }),
       ];
     }
+    case "BUY": {
+      return [param("id", "invalid subsription id").isString()];
+    }
     default: {
       return [];
     }
