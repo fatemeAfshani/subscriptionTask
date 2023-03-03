@@ -1,4 +1,4 @@
-const { body, param } = require("express-validator");
+const { body, param, query } = require("express-validator");
 
 const { Subscription } = require("../../database");
 
@@ -42,6 +42,14 @@ module.exports.subscriptionValidator = (method) => {
     }
     case "BUY": {
       return [param("id", "invalid subsription id").isString()];
+    }
+    case "GETALL": {
+      return [
+        query("limit", "invalid limit").optional().isInt(),
+        query("offset", "invalid offset").optional().isInt(),
+        query("isActive", "invalid isActive, send boolean ").optional().isBoolean(),
+
+      ];
     }
     default: {
       return [];

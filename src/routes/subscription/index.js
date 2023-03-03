@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { add, update, buy } = require("../../controllers/subscription");
+const { add, update, buy, getSubscriptions } = require("../../controllers/subscription");
 const { isAuth } = require("../../utils/middlewares/auth");
 
 const { errorHandler } = require("../../utils/middlewares/errorHandler");
@@ -27,6 +27,14 @@ subscriptionRouter.get(
   subscriptionValidator("BUY"),
   errorHandler,
   buy
+);
+
+subscriptionRouter.get(
+  "/",
+  isAuth,
+  subscriptionValidator("GETALL"),
+  errorHandler,
+  getSubscriptions
 );
 
 module.exports = subscriptionRouter;

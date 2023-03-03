@@ -8,6 +8,27 @@ const get = (params) => {
   return knex.select("*").from("customers_subscriptions").where(params);
 };
 
+const getALL = (params, limit, offset) => {
+  return knex
+    .select(
+      "name",
+      "createdAt",
+      "duration",
+      "isActive",
+      "customers_subscriptions.price as price"
+    )
+    .from("customers_subscriptions")
+    .leftJoin(
+      "subscriptions",
+      "subscriptions.id",
+      "customers_subscriptions.subscriptionId"
+    )
+    .where(params)
+    .orderBy("createdAt", "desc")
+    .limit(limit)
+    .offset(offset);
+};
+
 const updateOne = (params, id) => {
   return knex.from("customers_subscriptions").update(params).where({ id });
 };
@@ -16,4 +37,5 @@ module.exports = {
   add,
   get,
   updateOne,
+  getALL,
 };
