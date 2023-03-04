@@ -114,9 +114,18 @@ curl --location --request GET 'localhost:3000/subscription?limit=4&offset=0&isAc
 
 ### Get all of created invoices for customer
 
-again, all request queries(limit, offset) are optional
+all request queries(limit, offset) are optional
 
 ```bash
 curl --location --request GET 'localhost:3000/invoice?limit=2&offset=3' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX...'
+```
+
+### Get all invoices for one customer subscription
+
+all request queries(limit, offset) are optional
+
+```bash
+curl --location --request GET 'localhost:3000/invoice/10?limit=10&offset=0' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC...'
 ```
