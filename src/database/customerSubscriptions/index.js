@@ -11,6 +11,7 @@ const get = (params) => {
 const getALL = (params, limit, offset) => {
   return knex
     .select(
+      "customers_subscriptions.id as id",
       "name",
       "createdAt",
       "duration",

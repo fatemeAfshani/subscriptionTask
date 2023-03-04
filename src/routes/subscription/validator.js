@@ -51,6 +51,13 @@ module.exports.subscriptionValidator = (method) => {
 
       ];
     }
+
+    case "DEACTIVE": {
+      return [
+        param("id", "invalid subscription id").isInt().notEmpty()
+   
+      ];
+    }
     default: {
       return [];
     }

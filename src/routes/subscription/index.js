@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { add, update, buy, getSubscriptions } = require("../../controllers/subscription");
+const { add, update, buy, getSubscriptions, deactiveSubscription } = require("../../controllers/subscription");
 const { isAuth } = require("../../utils/middlewares/auth");
 
 const { errorHandler } = require("../../utils/middlewares/errorHandler");
@@ -36,5 +36,9 @@ subscriptionRouter.get(
   errorHandler,
   getSubscriptions
 );
+
+subscriptionRouter.patch("/:id/deactive",   isAuth,
+subscriptionValidator("DEACTIVE"), errorHandler, deactiveSubscription);
+
 
 module.exports = subscriptionRouter;

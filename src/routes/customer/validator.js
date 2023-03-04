@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const { Customer } = require("../../database");
 
@@ -30,6 +30,7 @@ module.exports.customerValidator = (method) => {
         body("password", "invalid password").isString().notEmpty(),
       ];
     }
+      
     default: {
       return [];
     }
