@@ -38,6 +38,7 @@ const getALL = (params, limit, offset) => {
       "startDate",
       "endDate",
       "customers_subscriptions.price as price",
+      "customers_subscriptions.id as customerSubscriptionId",
       "name"
     )
     .from("invoices")
