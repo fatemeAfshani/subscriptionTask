@@ -11,6 +11,7 @@ const customerRouter = require("./routes/customer");
 const subscriptionRouter = require("./routes/subscription");
 const logger = require("./logger");
 const { invoiceMakerJob } = require("./utils/invoiceMakerJob");
+const invoiceRouter = require("./routes/invoice");
 
 const job = new CronJob("*/10 * * * *", invoiceMakerJob);
 job.start();
@@ -40,6 +41,7 @@ if (process.env.ENVIRONMENT === "prod") app.use(limiter);
 
 app.use("/customer", customerRouter);
 app.use("/subscription", subscriptionRouter);
+app.use('/invoice', invoiceRouter)
 
 app.use((err, req, res, _) => {
   logger.error(`error handler: ${err}`);
