@@ -37,10 +37,8 @@ const getALL = (params, limit, offset) => {
       "invoices.id as id",
       "startDate",
       "endDate",
-      "isActive",
-      "price",
-      "subscriptionId",
-      "credit"
+      "customers_subscriptions.price as price",
+      "name"
     )
     .from("invoices")
     .leftJoin(
@@ -48,7 +46,11 @@ const getALL = (params, limit, offset) => {
       "customers_subscriptions.id",
       "invoices.customerSubscriptionId"
     )
-    .leftJoin("customers", "customers.id", "customers_subscriptions.customerId")
+    .leftJoin(
+      "subscriptions",
+      "subscriptions.id",
+      "customers_subscriptions.subscriptionId"
+    )
     .where(params)
     .orderBy("startDate", "desc")
     .limit(limit)

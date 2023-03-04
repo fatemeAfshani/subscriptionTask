@@ -1,4 +1,4 @@
-const { Invoice } = require("../../database");
+const { Invoice, Customer } = require("../../database");
 const logger = require("../../logger");
 
 module.exports.getAllInvoices = async (req, res) => {
@@ -12,7 +12,9 @@ module.exports.getAllInvoices = async (req, res) => {
       +offset * +limit
     );
 
-    res.status(200).send({ invoices });
+    const customerData = (await Customer.get({ id: customer.id }))?.[0];
+
+    res.status(200).send({ userCredit: customerData.credit, invoices });
   } catch (error) {
     logger.error(`error happend in getting invoices ${error}`);
     res.status(500).send({ message: "error happened" });
