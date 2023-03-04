@@ -20,27 +20,24 @@ module.exports.invoiceMakerJob = async () => {
           !lastInvoice &&
           calculateTimeDifference(now, customerSubscription.createdAt) >= 10
         ) {
-            await Invoice.add({
-              customerSubscriptionId: customerSubscription.id,
-              startDate: customerSubscription.createdAt,
-              endDate: moment(
-                customerSubscription.createdAt,
-                "jYYYY/jMM/jDD HH:mm:ss"
-              )
-                .add(10, "m")
-                .format("jYYYY/jMM/jDD HH:mm:ss"),
-            })
-         
+          await Invoice.add({
+            customerSubscriptionId: customerSubscription.id,
+            startDate: customerSubscription.createdAt,
+            endDate: moment(
+              customerSubscription.createdAt,
+              "jYYYY/jMM/jDD HH:mm:ss"
+            )
+              .add(10, "m")
+              .format("jYYYY/jMM/jDD HH:mm:ss"),
+          });
         } else if (calculateTimeDifference(now, lastInvoice.endDate) >= 10) {
-         
-            await Invoice.add({
-              customerSubscriptionId: customerSubscription.id,
-              startDate: lastInvoice.endDate,
-              endDate: moment(lastInvoice.endDate, "jYYYY/jMM/jDD HH:mm:ss")
-                .add(10, "m")
-                .format("jYYYY/jMM/jDD HH:mm:ss"),
-            })
-        
+          await Invoice.add({
+            customerSubscriptionId: customerSubscription.id,
+            startDate: lastInvoice.endDate,
+            endDate: moment(lastInvoice.endDate, "jYYYY/jMM/jDD HH:mm:ss")
+              .add(10, "m")
+              .format("jYYYY/jMM/jDD HH:mm:ss"),
+          });
         }
 
         // if customer subscription is expired base on it's durationDate

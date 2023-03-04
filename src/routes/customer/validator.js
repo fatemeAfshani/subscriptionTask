@@ -30,7 +30,7 @@ module.exports.customerValidator = (method) => {
         body("password", "invalid password").isString().notEmpty(),
       ];
     }
-      
+
     default: {
       return [];
     }

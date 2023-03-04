@@ -47,16 +47,14 @@ module.exports.subscriptionValidator = (method) => {
       return [
         query("limit", "invalid limit").optional().isInt(),
         query("offset", "invalid offset").optional().isInt(),
-        query("isActive", "invalid isActive, send boolean ").optional().isBoolean(),
-
+        query("isActive", "invalid isActive, send boolean ")
+          .optional()
+          .isBoolean(),
       ];
     }
 
     case "DEACTIVE": {
-      return [
-        param("id", "invalid subscription id").isInt().notEmpty()
-   
-      ];
+      return [param("id", "invalid subscription id").isInt().notEmpty()];
     }
     default: {
       return [];
