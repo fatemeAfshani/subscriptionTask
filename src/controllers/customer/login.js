@@ -31,7 +31,6 @@ const createToken = ({ username, credit, id }) => {
     {
       data: {
         username,
-        credit,
         id,
       },
     },

@@ -1,4 +1,5 @@
 const moment = require("jalali-moment");
+const customer = require("../controllers/customer");
 const { CustomerSubscriptions, Invoice, History } = require("../database");
 const logger = require("../logger");
 
@@ -20,24 +21,36 @@ module.exports.invoiceMakerJob = async () => {
           !lastInvoice &&
           calculateTimeDifference(now, customerSubscription.createdAt) >= 10
         ) {
-          await Invoice.add({
-            customerSubscriptionId: customerSubscription.id,
-            startDate: customerSubscription.createdAt,
-            endDate: moment(
-              customerSubscription.createdAt,
-              "jYYYY/jMM/jDD HH:mm:ss"
-            )
-              .add(10, "m")
-              .format("jYYYY/jMM/jDD HH:mm:ss"),
-          });
+          await Invoice.add(
+            {
+              customerSubscriptionId: customerSubscription.id,
+              startDate: customerSubscription.createdAt,
+              endDate: moment(
+                customerSubscription.createdAt,
+                "jYYYY/jMM/jDD HH:mm:ss"
+              )
+                .add(10, "m")
+                .format("jYYYY/jMM/jDD HH:mm:ss"),
+            },
+            {
+              price: customerSubscription.price,
+              customerId: customerSubscription.customerId,
+            }
+          );
         } else if (calculateTimeDifference(now, lastInvoice.endDate) >= 10) {
-          await Invoice.add({
-            customerSubscriptionId: customerSubscription.id,
-            startDate: lastInvoice.endDate,
-            endDate: moment(lastInvoice.endDate, "jYYYY/jMM/jDD HH:mm:ss")
-              .add(10, "m")
-              .format("jYYYY/jMM/jDD HH:mm:ss"),
-          });
+          await Invoice.add(
+            {
+              customerSubscriptionId: customerSubscription.id,
+              startDate: lastInvoice.endDate,
+              endDate: moment(lastInvoice.endDate, "jYYYY/jMM/jDD HH:mm:ss")
+                .add(10, "m")
+                .format("jYYYY/jMM/jDD HH:mm:ss"),
+            },
+            {
+              price: customerSubscription.price,
+              customerId: customerSubscription.customerId,
+            }
+          );
         }
 
         // if customer subscription is expired base on it's durationDate
