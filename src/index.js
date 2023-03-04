@@ -41,7 +41,7 @@ if (process.env.ENVIRONMENT === "prod") app.use(limiter);
 
 app.use("/customer", customerRouter);
 app.use("/subscription", subscriptionRouter);
-app.use('/invoice', invoiceRouter)
+app.use("/invoice", invoiceRouter);
 
 app.use((err, req, res, _) => {
   logger.error(`error handler: ${err}`);

@@ -1,25 +1,25 @@
 const knex = require("../db");
 
 const add = (params, customerParams) => {
-    return knex.transaction(function (trx) {
-    return trx('invoices')
+  return knex.transaction(function (trx) {
+    return trx("invoices")
       .insert(params)
       .then(function () {
-        return trx('customers')
+        return trx("customers")
           .forUpdate()
-          .select('*')
-          .where({id: customerParams.customerId})
+          .select("*")
+          .where({ id: customerParams.customerId })
           .then(function (result) {
-            const customer  = result?.[0]
+            const customer = result?.[0];
 
             if (customer) {
-              return trx('customers')
-                .update({credit: customer.credit - customerParams.price})
-                .where({id: customerParams.customerId})
-            } 
-          })
-      })
-  })
+              return trx("customers")
+                .update({ credit: customer.credit - customerParams.price })
+                .where({ id: customerParams.customerId });
+            }
+          });
+      });
+  });
 };
 
 const getLastOne = (id) => {
@@ -30,7 +30,6 @@ const getLastOne = (id) => {
     .orderBy("endDate", "desc")
     .limit(1);
 };
-
 
 const getALL = (params, limit, offset) => {
   return knex
@@ -49,11 +48,7 @@ const getALL = (params, limit, offset) => {
       "customers_subscriptions.id",
       "invoices.customerSubscriptionId"
     )
-     .leftJoin(
-        "customers",
-        "customers.id",
-        "customers_subscriptions.customerId"
-      )
+    .leftJoin("customers", "customers.id", "customers_subscriptions.customerId")
     .where(params)
     .orderBy("startDate", "desc")
     .limit(limit)
@@ -63,5 +58,5 @@ const getALL = (params, limit, offset) => {
 module.exports = {
   add,
   getLastOne,
-  getALL
+  getALL,
 };

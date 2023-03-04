@@ -1,4 +1,4 @@
-const {  Invoice } = require("../../database");
+const { Invoice } = require("../../database");
 const logger = require("../../logger");
 
 module.exports.getAllInvoices = async (req, res) => {
@@ -7,7 +7,7 @@ module.exports.getAllInvoices = async (req, res) => {
     const customer = req.customer;
 
     const invoices = await Invoice.getALL(
-      {customerId: customer.id},
+      { customerId: customer.id },
       limit,
       +offset * +limit
     );
