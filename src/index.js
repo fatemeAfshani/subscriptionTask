@@ -6,19 +6,21 @@ const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
 const moment = require("jalali-moment");
 const CronJob = require("cron").CronJob;
+const swaggerUi = require("swagger-ui-express");
 
 const customerRouter = require("./routes/customer");
 const subscriptionRouter = require("./routes/subscription");
 const logger = require("./logger");
 const { invoiceMakerJob } = require("./utils/invoiceMakerJob");
 const invoiceRouter = require("./routes/invoice");
+const { openapiSpecification } = require("./swagger");
 
 const job = new CronJob("*/10 * * * *", invoiceMakerJob);
 job.start();
 
 const app = express();
-app.use(express.json());
 
+app.use(express.json());
 app.use(helmet());
 
 morgan.token("body", (req) => JSON.stringify(req.body));
@@ -38,6 +40,8 @@ const limiter = rateLimit({
 });
 
 if (process.env.ENVIRONMENT === "prod") app.use(limiter);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 app.use("/customer", customerRouter);
 app.use("/subscription", subscriptionRouter);
