@@ -38,9 +38,13 @@ npm run start:prod
 npm run start:dev
 ```
 
+## Api Documentation
+
+for calling Apis you can use swagger ui `http://localhost:PORT/api-docs` for api documentation or sample curl requests from next section.
+
 ## Sample requests
 
-because project doesn't have Api documentation (yet), I add some sample requests to know exactly how to call Apis
+here are some sample requests to know exactly how to call Apis
 
 ### Register new customer
 
@@ -89,6 +93,14 @@ curl --location --request PATCH 'localhost:3000/subscription/1' \
 }'
 ```
 
+### Get all of subscriptions
+
+all request queries(limit, offset) are optional
+
+```bash
+curl --location --request GET 'localhost:3000/subscription/?limit=4&offset=0' \
+```
+
 ### Buy a subscription as customer
 
 ```bash
@@ -108,7 +120,7 @@ curl --location --request PATCH 'localhost:3000/subscription/1/deactive' \
 all request queries(limit, offset, isActive) are optional
 
 ```bash
-curl --location --request GET 'localhost:3000/subscription?limit=4&offset=0&isActive=1' \
+curl --location --request GET 'localhost:3000/subscription/customer?limit=4&offset=0&isActive=1' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...'
 ```
 
