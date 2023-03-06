@@ -13,7 +13,7 @@ module.exports.buy = async (req, res) => {
 
     const subscription = (await Subscription.get({ id }))?.[0];
     if (!subscription)
-      return res.status(400).send({ message: "subscription does not exist" });
+      return res.status(404).send({ message: "subscription does not exist" });
 
     const params = {
       customerId: customer.id,

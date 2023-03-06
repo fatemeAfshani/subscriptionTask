@@ -3,8 +3,9 @@ const {
   add,
   update,
   buy,
-  getSubscriptions,
+  getCustomerSubscriptions,
   deactiveSubscription,
+  getSubscriptions,
 } = require("../../controllers/subscription");
 const { isAuth } = require("../../utils/middlewares/auth");
 
@@ -28,6 +29,13 @@ subscriptionRouter.patch(
 );
 
 subscriptionRouter.get(
+  "/",
+  subscriptionValidator("GETALL"),
+  errorHandler,
+  getSubscriptions
+);
+
+subscriptionRouter.get(
   "/buy/:id",
   isAuth,
   subscriptionValidator("BUY"),
@@ -36,11 +44,11 @@ subscriptionRouter.get(
 );
 
 subscriptionRouter.get(
-  "/",
+  "/customer",
   isAuth,
-  subscriptionValidator("GETALL"),
+  subscriptionValidator("GET-CUSTOMER-SUBS"),
   errorHandler,
-  getSubscriptions
+  getCustomerSubscriptions
 );
 
 subscriptionRouter.patch(

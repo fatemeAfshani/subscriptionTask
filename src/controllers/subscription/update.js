@@ -12,7 +12,7 @@ module.exports.update = async (req, res) => {
     const result = await Subscription.updateOne(req.body, id);
 
     if (result) {
-      res.status(200).send({ id });
+      res.sendStatus(200);
     } else {
       res.status(404).send({ message: "subscription not found" });
     }

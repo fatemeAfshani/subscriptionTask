@@ -15,7 +15,7 @@ module.exports.add = async (req, res) => {
     logger.info(
       `new subscription created with name: ${name} and price: ${price}`
     );
-    res.status(200).send({ name, price, id: subscription.id });
+    res.status(201).send({ name, price, id: subscription.id });
   } catch (error) {
     logger.error(`error happend in adding subscription ${error}`);
     res.status(500).send({ message: "error happened" });

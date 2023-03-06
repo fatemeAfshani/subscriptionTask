@@ -40,10 +40,16 @@ module.exports.subscriptionValidator = (method) => {
           }),
       ];
     }
+    case "GETALL": {
+      return [
+        query("limit", "invalid limit").optional().isInt(),
+        query("offset", "invalid offset").optional().isInt(),
+      ];
+    }
     case "BUY": {
       return [param("id", "invalid subsription id").isString()];
     }
-    case "GETALL": {
+    case "GET-CUSTOMER-SUBS": {
       return [
         query("limit", "invalid limit").optional().isInt(),
         query("offset", "invalid offset").optional().isInt(),
@@ -56,6 +62,7 @@ module.exports.subscriptionValidator = (method) => {
     case "DEACTIVE": {
       return [param("id", "invalid subscription id").isInt().notEmpty()];
     }
+
     default: {
       return [];
     }
